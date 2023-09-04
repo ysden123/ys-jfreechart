@@ -9,22 +9,11 @@ import org.jfree.data.category.{CategoryDataset, DefaultCategoryDataset}
 /**
  * Wrapper for JFreeChart CategoryDataset class
  */
-class YSCategoryDataset:
+class YSCategoryDataset[RK, CK]():
   private val data = new DefaultCategoryDataset
 
   def dataset(): CategoryDataset =
-/*
-    println("==>dataset")
-    println(s"""data.getColumnCount=${data.getColumnCount}""")
-    println(s"""data.getRowCount=${data.getRowCount}""")
-    println(s"""data.getValue("schools", 1980.0)=${data.getValue("schools", 1980.0)}""")
-*/
-
     data.clone().asInstanceOf[CategoryDataset]
-  def addValue(value: Double, rowKey: String, columnKey: Double): Unit =
+
+  def addValue(value: java.lang.Number, rowKey: Comparable[RK], columnKey: Comparable[CK]): Unit =
     data.addValue(value, rowKey, columnKey)
-
-  def addValue(value: Double, rowKey: Int, columnKey: Double): Unit =
-    data.addValue(value, rowKey, columnKey)
-
-
